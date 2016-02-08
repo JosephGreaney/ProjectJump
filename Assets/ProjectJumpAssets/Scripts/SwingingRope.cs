@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-/* Draws a line between the scripts object and the connected body of its
+/* 
+ * Draws a line between the scripts object and the connected body of its
  * DistanceJoint2D
- * 
- *
 */
 
 public class SwingingRope : MonoBehaviour {
@@ -25,7 +24,6 @@ public class SwingingRope : MonoBehaviour {
 	void Update() {
 		Vector3[] points = new Vector3[2];
 		points [0] = gameObject.transform.position;
-		//points [1] = joint.connectedBody.transform.position; this line is for connected objects
 		points[1] = new Vector3(joint.connectedAnchor.x, joint.connectedAnchor.y, 0f);
 		lineRenderer.SetPositions (points);
 	}

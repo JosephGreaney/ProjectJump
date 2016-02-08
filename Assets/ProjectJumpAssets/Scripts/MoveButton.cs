@@ -4,10 +4,15 @@ using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.EventSystems;
 using System;
 
+/*
+ * This class is used to handle the pressing of the movement buttons
+ * if the button is pressed then pressed is set to true and when the button
+ * is depressed pressed is set to false
+*/
 public class MoveButton : MonoBehaviour
 {
-
-    protected bool pressed = false;
+    
+    protected bool pressed = false;     // Whether the button is pressed or not
 
     // Use this for initialization
     void Start()
