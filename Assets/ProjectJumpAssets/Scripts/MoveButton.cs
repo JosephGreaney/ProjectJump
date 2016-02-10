@@ -1,8 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
-using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.EventSystems;
-using System;
 
 /*
  * This class is used to handle the pressing of the movement buttons

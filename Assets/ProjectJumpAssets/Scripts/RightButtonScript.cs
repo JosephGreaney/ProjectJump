@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.EventSystems;
-using System;
 
 /*
  * This script handles the user input for the Right button.

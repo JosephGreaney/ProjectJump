@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
 
 /*
  * This class is used to handle the collision detection for boxes that kill the player
@@ -20,7 +19,7 @@ public class OnDeathBox : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other) {
         
 		if (other.tag == "Player") {
-			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
-		}
+            SceneManager.LoadScene("DeathScene");
+        }
 	}
 }
