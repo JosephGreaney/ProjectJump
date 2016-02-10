@@ -3,6 +3,7 @@ using System.Collections;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.EventSystems;
 using System;
+using UnityEngine;
 
 /*
  * This script handles the user input for the Left button.
