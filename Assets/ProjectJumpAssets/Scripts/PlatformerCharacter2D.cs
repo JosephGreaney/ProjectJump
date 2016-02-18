@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UnityStandardAssets._2D
 {
@@ -21,7 +22,16 @@ namespace UnityStandardAssets._2D
         private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 		private float vsp;					// Vertical speed of the character
 		private float vspLimit = 10f;		// Maximum/minimum vertical speed limit of the character
-		private float gravity = 1f;			// Gravity multiplier
+		private float gravity = 1f;         // Gravity multiplier
+        private int score = 0;
+        public Text scoreText;
+
+        void Start()
+        {
+            score = 0;
+            // UpdateScoreText();
+            scoreText.text = "Score: " + score.ToString();
+        }
 
         private void Awake()
         {
@@ -128,5 +138,24 @@ namespace UnityStandardAssets._2D
             theScale.x *= -1;
             transform.localScale = theScale;
         }
+
+        void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.gameObject.CompareTag("PickUp"))
+            {
+                other.gameObject.SetActive(false);
+                score++;
+                Debug.Log(score);
+                // UpdateScoreText();
+                scoreText.text = "Score: " + score.ToString();
+            }
+            else
+                Debug.Log("moo");
+        }
+
+        /*void UpdateScoreText()
+        {
+            ScoreText.text = "Score: " + score.ToString();
+        }*/
     }
 }
