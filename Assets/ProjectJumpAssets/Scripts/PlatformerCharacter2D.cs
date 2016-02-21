@@ -25,12 +25,19 @@ namespace UnityStandardAssets._2D
 		private float gravity = 1f;         // Gravity multiplier
         private int score = 0;
         public Text scoreText;
+        public Text timerText;
+        private float timer;
+        private int seconds;
+        private int minutes;
+        private String minString;
+        private String secString;
 
         void Start()
         {
             score = 0;
-            // UpdateScoreText();
-            scoreText.text = "Score: " + score.ToString();
+            UpdateScoreText();
+            timer = 0.0f;
+            minutes = 0;
         }
 
         private void Awake()
@@ -59,8 +66,8 @@ namespace UnityStandardAssets._2D
 
             // Set the vertical animation
             m_Anim.SetFloat("vSpeed", m_Rigidbody2D.velocity.y);
+            UpdateTimer();
         }
-
 
 		public void Move(float move, bool crouch, bool jump, int flipped)
 		{
@@ -146,16 +153,32 @@ namespace UnityStandardAssets._2D
                 other.gameObject.SetActive(false);
                 score++;
                 Debug.Log(score);
-                // UpdateScoreText();
-                scoreText.text = "Score: " + score.ToString();
+                UpdateScoreText();
             }
             else
                 Debug.Log("moo");
         }
 
-        /*void UpdateScoreText()
+        void UpdateScoreText()
         {
-            ScoreText.text = "Score: " + score.ToString();
-        }*/
+            scoreText.text = "Score: " + score.ToString();
+        }
+
+        void UpdateTimer()
+        {
+            //deltaTime is the amount of time the last frame took
+            timer += Time.deltaTime;
+            seconds = (int)timer - (minutes * 60);
+            minutes = ((int)timer) / 60;
+            if (seconds < 10)
+                secString = "0" + (seconds.ToString());
+            else
+                secString = seconds.ToString();
+            if (minutes < 10)
+                minString = "0" + (minutes.ToString());
+            else
+                minString = minutes.ToString();
+            timerText.text = minString + ":" + secString;
+        }
     }
 }
