@@ -16,7 +16,8 @@ public class BlueShipAI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Vector3.Distance (transform.position, player.transform.position) > 0 && Vector3.Distance(transform.position, player.transform.position) < 15) {
+        player = GameObject.FindGameObjectWithTag("Player");
+        if (Vector3.Distance (transform.position, player.transform.position) > 0 && Vector3.Distance(transform.position, player.transform.position) < 20) {
             transform.LookAt(player.transform);
             transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
         }

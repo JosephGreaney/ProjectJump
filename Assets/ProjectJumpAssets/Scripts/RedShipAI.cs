@@ -16,11 +16,11 @@ public class RedShipAI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Vector3.Distance(transform.position, player.transform.position) < 10 && player.transform.position.y > transform.position.y)  {
+        if (Vector3.Distance(transform.position, player.transform.position) < 20 && player.transform.position.y > transform.position.y)  {
             transform.LookAt(player.transform);
             transform.Translate(new Vector3(speed * Time.deltaTime, speed * Time.deltaTime, 0));
         }
-        if (Vector3.Distance(transform.position, player.transform.position) < 10 && player.transform.position.y < transform.position.y)
+        if (Vector3.Distance(transform.position, player.transform.position) < 20 && player.transform.position.y < transform.position.y)
         {
             transform.LookAt(player.transform);
             transform.Translate(new Vector3(speed * Time.deltaTime, -1*(speed * Time.deltaTime), 0));
