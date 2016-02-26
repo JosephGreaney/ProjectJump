@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace UnityStandardAssets._2D
@@ -23,6 +25,7 @@ namespace UnityStandardAssets._2D
 		private float vsp;					// Vertical speed of the character
 		private float vspLimit = 10f;		// Maximum/minimum vertical speed limit of the character
 		private float gravity = 1f;         // Gravity multiplier
+
         private int score = 0;
         public Text scoreText;
         public Text timerText;
@@ -31,6 +34,9 @@ namespace UnityStandardAssets._2D
         private int minutes;
         private String minString;
         private String secString;
+
+        private int maxFallTime = 10;        // The maximum amount of seconds to spend before player falls to their death
+        private bool fallCheck = false;     // whether we are checking if the player is falling or not
 
         void Start()
         {
@@ -67,12 +73,16 @@ namespace UnityStandardAssets._2D
             // Set the vertical animation
             m_Anim.SetFloat("vSpeed", m_Rigidbody2D.velocity.y);
             UpdateTimer();
+            
         }
 
 		public void Move(float move, bool crouch, bool jump, int flipped)
 		{
-			// Set gravity to the value of flipped
-			m_Rigidbody2D.gravityScale = -flipped * System.Math.Abs(m_Rigidbody2D.gravityScale);
+            // Check if the player is falling indefinetly
+            if(!m_Grounded)
+                CheckFalling();
+            // Set gravity to the value of flipped
+            m_Rigidbody2D.gravityScale = -flipped * System.Math.Abs(m_Rigidbody2D.gravityScale);
 			vsp = m_Rigidbody2D.velocity.y;
 			// Check if the vertical speed will be between the upper and lower limits
 			if ((vsp - flipped)<vspLimit && (vsp + flipped)>-vspLimit)
@@ -133,7 +143,7 @@ namespace UnityStandardAssets._2D
 					m_Rigidbody2D.AddForce (new Vector2 (0f, flipped * -m_JumpForce*1.1f));
             }
         }
-
+        
 
         private void Flip()
         {
@@ -155,8 +165,6 @@ namespace UnityStandardAssets._2D
                 Debug.Log(score);
                 UpdateScoreText();
             }
-            else
-                Debug.Log("moo");
         }
 
         void UpdateScoreText()
@@ -179,6 +187,53 @@ namespace UnityStandardAssets._2D
             else
                 minString = minutes.ToString();
             timerText.text = minString + ":" + secString;
+        }
+
+        /**
+         * Check if the player has been falling to their death for longer
+         * than the maximum falling time.
+         *
+         */
+        IEnumerator FallingToDeath()
+        {
+            // start the counter at 1 second
+            int counter = 1;
+            while(counter <= maxFallTime && fallCheck)
+            {
+                // if the player lands
+                if (m_Grounded)
+                {
+                    fallCheck = false;
+                    yield return false;
+                }
+                // the player is falling
+                else
+                {
+                    yield return new WaitForSeconds(1);
+                    counter++;
+                }
+            }
+            if (fallCheck)
+            {
+                fallCheck = false;
+                SceneManager.LoadScene("DeathScene");
+                yield return true;
+            }
+            
+        }
+        
+        /** start the Falling coroutine if not locked.
+         *
+         */
+        void CheckFalling()
+        {
+            if (!fallCheck)
+            {
+                fallCheck = true;
+                StartCoroutine(FallingToDeath());
+            }
+                
+                
         }
     }
 }
