@@ -23,8 +23,9 @@ public class SwingingRope : MonoBehaviour {
 
 	void Update() {
 		Vector3[] points = new Vector3[2];
-		points [0] = gameObject.transform.position;
-		points[1] = new Vector3(joint.connectedAnchor.x, joint.connectedAnchor.y, 0f);
+		points [0] = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, -1f);
+		points[1] = new Vector3(joint.connectedAnchor.x, joint.connectedAnchor.y, -1f);
 		lineRenderer.SetPositions (points);
-	}
+        lineRenderer.sortingLayerName = "Player";
+    }
 }

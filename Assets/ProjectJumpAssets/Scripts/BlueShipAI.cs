@@ -21,5 +21,7 @@ public class BlueShipAI : MonoBehaviour {
             transform.LookAt(player.transform);
             transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
         }
-     }
+        //Sets the sprite to be at a set rotation
+        transform.rotation = Quaternion.Euler(0, 0, 0);
+    }
 }
