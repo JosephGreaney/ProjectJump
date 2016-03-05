@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -27,8 +29,11 @@ namespace UnityStandardAssets._2D
 		private float gravity = 1f;         // Gravity multiplier
 
         private int score = 0;
+        private int highScore;
+        private int highScoreCopy;
         public Text scoreText;
         public Text timerText;
+        public Text highScoreText;
         private float timer;
         private int seconds;
         private int minutes;
@@ -40,10 +45,13 @@ namespace UnityStandardAssets._2D
 
         void Start()
         {
+            Load();
             score = 0;
             UpdateScoreText();
+            UpdateHighScoreText();
             timer = 0.0f;
             minutes = 0;
+            highScoreCopy = highScore;
         }
 
         private void Awake()
@@ -164,12 +172,23 @@ namespace UnityStandardAssets._2D
                 score++;
                 Debug.Log(score);
                 UpdateScoreText();
+                if(score > highScore)
+                {
+                    highScore = score;
+                    UpdateHighScoreText();
+                    Save();
+                }
             }
         }
 
         void UpdateScoreText()
         {
             scoreText.text = "Score: " + score.ToString();
+        }
+
+        void UpdateHighScoreText()
+        {
+            highScoreText.text = "High: " + highScore.ToString();
         }
 
         void UpdateTimer()
@@ -232,8 +251,37 @@ namespace UnityStandardAssets._2D
                 fallCheck = true;
                 StartCoroutine(FallingToDeath());
             }
-                
-                
         }
+
+        public void Save()
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream file = File.Create(Application.persistentDataPath + "/highScore.dat");
+            HighScoreData hs = new HighScoreData();
+            hs.highscore = highScore;
+            formatter.Serialize(file, hs);
+            file.Close();
+        }
+
+        public void Load()
+        {
+            if(File.Exists(Application.persistentDataPath + "/highScore.dat"))
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                FileStream file = File.Open(Application.persistentDataPath + "/highScore.dat", FileMode.Open);
+                HighScoreData hs = (HighScoreData)formatter.Deserialize(file);
+                file.Close();
+                highScore = hs.highscore;
+            }
+            else
+                highScore = 0;
+            UpdateHighScoreText();
+        }
+    }
+
+    [Serializable]
+    class HighScoreData
+    {
+        public int highscore;
     }
 }
