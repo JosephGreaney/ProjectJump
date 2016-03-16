@@ -278,10 +278,4 @@ namespace UnityStandardAssets._2D
             UpdateHighScoreText();
         }
     }
-
-    [Serializable]
-    class HighScoreData
-    {
-        public int highscore;
-    }
 }
