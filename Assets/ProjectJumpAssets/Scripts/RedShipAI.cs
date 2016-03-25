@@ -18,14 +18,14 @@ public class RedShipAI : Movement {
 	
 	// Update is called once per frame
 	void Update () {
-        print(Vector3.Distance(transform.position, player.transform.position));
+        //print(Vector3.Distance(transform.position, player.transform.position));
         if (Vector3.Distance(transform.position, player.transform.position) < 20 && player.transform.position.y > transform.position.y)
         {
-            print("test");
+            print("working");
             transform.LookAt(player.transform);
             if (transform.position.x > player.transform.position.x)
             {
-                print("test2");
+                print("still working");
                 moveUpLeft(speed, redShip);
             }
             if (transform.position.x < player.transform.position.x)
