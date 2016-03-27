@@ -17,6 +17,7 @@ public class OnDeathBox : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other) {
         
 		if (other.tag == "Player") {
+            Handheld.Vibrate();
             SceneManager.LoadScene("DeathScene");
         }
 	}
