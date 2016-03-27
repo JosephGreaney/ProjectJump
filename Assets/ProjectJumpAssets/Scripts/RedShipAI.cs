@@ -21,11 +21,9 @@ public class RedShipAI : Movement {
         //print(Vector3.Distance(transform.position, player.transform.position));
         if (Vector3.Distance(transform.position, player.transform.position) < 20 && player.transform.position.y > transform.position.y)
         {
-            print("working");
             transform.LookAt(player.transform);
             if (transform.position.x > player.transform.position.x)
             {
-                print("still working");
                 moveUpLeft(speed, redShip);
             }
             if (transform.position.x < player.transform.position.x)
@@ -44,6 +42,10 @@ public class RedShipAI : Movement {
             {
                 moveDownRight(speed, redShip);
             }
+        }
+        else if (Vector3.Distance(transform.position, player.transform.position) > 20)
+        {
+            stopMoving(redShip);
         }
         //Sets the sprite to be at a set rotation
         transform.rotation = Quaternion.Euler(0, 0, 0);

@@ -31,6 +31,10 @@ public class BlueShipAI : Movement {
                 moveLeft(speed, blueShip);
             }
         }
+        else
+        {
+            stopMoving(blueShip);
+        }
 
         //Sets the sprite to be at a set rotation
         transform.rotation = Quaternion.Euler(0, 0, 0);

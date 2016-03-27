@@ -107,4 +107,8 @@ public class Movement : MonoBehaviour
             moveUp(speed, moveable);
         }
     }
+    public void stopMoving(Rigidbody2D moveable)
+    {
+        moveable.velocity = new Vector3(0, 0, 0);
+    }
 }
