@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 /*
  * This class is used to handle the collision detection for boxes that kill the player
  * when the player collides with this script's trigger box then the scene is restarted
-*/
+ */
 public class OnDeathBox : MonoBehaviour {
     
 	// Use this for initialization
@@ -17,8 +17,7 @@ public class OnDeathBox : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other) {
         
 		if (other.tag == "Player") {
-            Handheld.Vibrate();
-            SceneManager.LoadScene("DeathScene");
+            GameManager.PlayerDeath();
         }
 	}
 }
