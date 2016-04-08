@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -28,15 +26,16 @@ namespace UnityStandardAssets._2D
 		private float vspLimit = 10f;		// Maximum/minimum vertical speed limit of the character
 		private float gravity = 1f;         // Gravity multiplier
 
-        private int score = 0;
-        private int highScore;
-        private int highScoreCopy;
-        public Text scoreText;
+        //private int score = 0;
+       // private int highScore;
+        //private int highScoreCopy;
+        //public Text scoreText;
         public Text timerText;
-        public Text highScoreText;
+        //public Text highScoreText;
         private float timer;
         private int seconds;
         private int minutes;
+        private int hours;
         private String minString;
         private String secString;
 
@@ -46,12 +45,12 @@ namespace UnityStandardAssets._2D
         void Start()
         {
             Load();
-            score = 0;
-            UpdateScoreText();
-            UpdateHighScoreText();
+          //  score = 0;
+            //UpdateScoreText();
+            //UpdateHighScoreText();
             timer = 0.0f;
             minutes = 0;
-            highScoreCopy = highScore;
+            //highScoreCopy = highScore;
         }
 
         private void Awake()
@@ -169,26 +168,18 @@ namespace UnityStandardAssets._2D
             if (other.gameObject.CompareTag("PickUp"))
             {
                 other.gameObject.SetActive(false);
-                score++;
-                Debug.Log(score);
-                UpdateScoreText();
-                if(score > highScore)
-                {
-                    highScore = score;
-                    UpdateHighScoreText();
-                    Save();
-                }
+                GameManager.LevelSuccess(hours, minutes, seconds);
             }
         }
 
         void UpdateScoreText()
         {
-            scoreText.text = "Score: " + score.ToString();
+            //scoreText.text = "Score: " + score.ToString();
         }
 
         void UpdateHighScoreText()
         {
-            highScoreText.text = "High: " + highScore.ToString();
+            //highScoreText.text = "High: " + highScore.ToString();
         }
 
         void UpdateTimer()
@@ -197,7 +188,8 @@ namespace UnityStandardAssets._2D
             timer += Time.deltaTime;
             seconds = (int)timer - (minutes * 60);
             minutes = ((int)timer) / 60;
-            if (seconds < 10)
+            hours = ((int)timer) / (60*60);
+            if (seconds < 10) //makes string on screen appear as '09' instead of '9' if 9 seconds have passed
                 secString = "0" + (seconds.ToString());
             else
                 secString = seconds.ToString();
@@ -255,17 +247,17 @@ namespace UnityStandardAssets._2D
 
         public void Save()
         {
-            BinaryFormatter formatter = new BinaryFormatter();
+            /*BinaryFormatter formatter = new BinaryFormatter();
             FileStream file = File.Create(Application.persistentDataPath + "/highScore.dat");
             HighScoreData hs = new HighScoreData();
             hs.highscore = highScore;
             formatter.Serialize(file, hs);
-            file.Close();
+            file.Close();*/
         }
 
         public void Load()
         {
-            if(File.Exists(Application.persistentDataPath + "/highScore.dat"))
+            /*if(File.Exists(Application.persistentDataPath + "/highScore.dat"))
             {
                 BinaryFormatter formatter = new BinaryFormatter();
                 FileStream file = File.Open(Application.persistentDataPath + "/highScore.dat", FileMode.Open);
@@ -275,7 +267,7 @@ namespace UnityStandardAssets._2D
             }
             else
                 highScore = 0;
-            UpdateHighScoreText();
+            UpdateHighScoreText();*/
         }
     }
 }

@@ -29,4 +29,9 @@ public class GameManager : MonoBehaviour {
         Handheld.Vibrate();
         SceneManager.LoadScene("DeathScene");
     }
+
+    public static void LevelSuccess(int hours, int minutes, int seconds)
+    {
+        TimeScript.checkHighScores(hours, minutes, seconds);
+    }
 }
