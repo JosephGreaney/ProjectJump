@@ -28,9 +28,10 @@ public class DBConnect : MonoBehaviour {
         dbcmd.CommandText = sqlQuery;
         IDataReader reader = dbcmd.ExecuteReader();
         List<DateTime> times = new List<DateTime>();
+        DateTime value;
         while (reader.Read())
         {
-            DateTime value = reader.GetDateTime(0);
+            value = reader.GetDateTime(0);
             times.Add(value);
         }
         reader.Close();
@@ -76,6 +77,30 @@ public class DBConnect : MonoBehaviour {
         dbcmd = null;
         dbconn.Close();
         dbconn = null;
-    } 
+    }
+
+    public static String getBestTime()
+    {
+        string conn = "URI=file:" + Application.dataPath + "/Database.s3db"; //Path to database.
+        IDbConnection dbconn;
+        dbconn = (IDbConnection)new SqliteConnection(conn);//creating connection to database
+        dbconn.Open(); //Open connection to the database.
+        IDbCommand dbcmd = dbconn.CreateCommand();
+        string sqlQuery = "SELECT MIN(RunTime) " + "FROM HighScores";
+        dbcmd.CommandText = sqlQuery;
+        IDataReader reader = dbcmd.ExecuteReader();
+        DateTime min = new DateTime();
+        while (reader.Read())
+        {
+            min = reader.GetDateTime(0);
+        }
+        reader.Close();
+        reader = null;
+        dbcmd.Dispose();
+        dbcmd = null;
+        dbconn.Close();
+        dbconn = null;
+        return TimeScript.getTimeOnly(min);
+    }
 }
 

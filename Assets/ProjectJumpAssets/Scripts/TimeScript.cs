@@ -60,4 +60,12 @@ public class TimeScript : MonoBehaviour {
             //times.Add(runTime);
         }
     }
+
+    public static String getTimeOnly(DateTime dt)//takes away the date part of a datetime object and returns a string of the time
+    {
+        String dtString = dt.ToString();
+        Char[] splitChar = { ' ' };
+        String[] array = dtString.Split(splitChar);
+        return array[1];
+    }
 }
