@@ -33,5 +33,6 @@ public class GameManager : MonoBehaviour {
     public static void LevelSuccess(int hours, int minutes, int seconds)
     {
         TimeScript.checkHighScores(hours, minutes, seconds);
+        SceneManager.LoadScene("LeaderboardScene");
     }
 }

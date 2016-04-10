@@ -19,20 +19,15 @@ public class TimeScript : MonoBehaviour {
     {
         {
             List<DateTime> times = DBConnect.getHighScores();
-            //DateTime rTime = new DateTime(2000,01,01,hours,minutes,seconds);
-            String h = timeFormatter(hours);
+            String h = timeFormatter(hours); //formats '0' as '00' for example
             String m = timeFormatter(minutes);
             String s = timeFormatter(seconds);
             String rTime = "2000-01-01 " + h + ":" + m + ":" + s;
             DateTime runTime = new DateTime(2000, 01, 01, hours, minutes, seconds);
-            if (times.Count < 5)
-            {
+            if (times.Count < 5) //if there's ;ess than 5 scores, the last runtime is added regardless of how quick it is
                 DBConnect.write(rTime);
-                times.Add(runTime);
-                //times.Sort(); //sorts times in  ascending order
-            }
-            else
-                replaceTime(times, runTime, rTime);
+            else if(times[4] > runTime) //if runtime is shorter than the longest time in the DB (times[4]), it replaces it
+                replaceTime(times[4], rTime);
         }
     }
     public static string timeFormatter(int tInt)//move this to another script
@@ -40,32 +35,15 @@ public class TimeScript : MonoBehaviour {
         return tInt.ToString("00");
     }
 
-    public static void replaceTime(List<DateTime> times, DateTime runTime, String rTime)
+    public static void replaceTime(DateTime highestTime, String rTime)
     {
-        DateTime highestTime = times[4];
-        if (highestTime > runTime)
-        {   //formats time to be removed into the format required by the database "yyyy-MM-dd ss:mm:ss"
-            String highString = highestTime.ToString();
-            Char[] splitChars = { '/', ' ' };//split requires a char array as an argument
-            Char[] splitChars2 = { ':' };
-            String[] dtArray = highString.Split(splitChars);  //Splits into four parts, with date parts having their own array index and time in the final index of the array
-            String[] timeArray = dtArray[3].Split(splitChars2); //splits time into three parts
-            int hrs = (Int32.Parse(timeArray[0])) - 12; //Stops time of 00:00:12 appearing as 12:00:12 AM
-            String hour = timeFormatter(hrs); //Formats 9 as '09' for example
-            String month = timeFormatter(Int32.Parse(dtArray[1]));
-            String day = timeFormatter(Int32.Parse(dtArray[0]));
-            String hString = dtArray[2] + "-" + month + "-" + day + " " + hour + ":" + timeArray[1] + ":" + timeArray[2];
-            DBConnect.write(hString, rTime); //deletes highestTime, and adds runTime to database*/
-            //times.Remove(highestTime);
-            //times.Add(runTime);
-        }
+        String hTime = highestTime.ToString("yyyy-MM-dd HH:mm:ss");
+        DBConnect.write(hTime, rTime); //deletes highestTime, and adds runTime to database*/
     }
 
     public static String getTimeOnly(DateTime dt)//takes away the date part of a datetime object and returns a string of the time
     {
-        String dtString = dt.ToString();
-        Char[] splitChar = { ' ' };
-        String[] array = dtString.Split(splitChar);
-        return array[1];
+        String dtString = dt.ToString("HH:mm:ss");
+        return dtString;
     }
 }

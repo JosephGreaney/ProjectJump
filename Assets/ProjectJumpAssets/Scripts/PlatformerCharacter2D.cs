@@ -25,13 +25,8 @@ namespace UnityStandardAssets._2D
 		private float vsp;					// Vertical speed of the character
 		private float vspLimit = 10f;		// Maximum/minimum vertical speed limit of the character
 		private float gravity = 1f;         // Gravity multiplier
-
-        //private int score = 0;
-       // private int highScore;
-        //private int highScoreCopy;
-        //public Text scoreText;
+        
         public Text timerText;
-        //public Text highScoreText;
         private float timer;
         private int seconds;
         private int minutes;
@@ -44,13 +39,8 @@ namespace UnityStandardAssets._2D
 
         void Start()
         {
-            Load();
-          //  score = 0;
-            //UpdateScoreText();
-            //UpdateHighScoreText();
             timer = 0.0f;
             minutes = 0;
-            //highScoreCopy = highScore;
         }
 
         private void Awake()
@@ -172,16 +162,6 @@ namespace UnityStandardAssets._2D
             }
         }
 
-        void UpdateScoreText()
-        {
-            //scoreText.text = "Score: " + score.ToString();
-        }
-
-        void UpdateHighScoreText()
-        {
-            //highScoreText.text = "High: " + highScore.ToString();
-        }
-
         void UpdateTimer()
         {
             //deltaTime is the amount of time the last frame took
@@ -190,11 +170,11 @@ namespace UnityStandardAssets._2D
             minutes = ((int)timer) / 60;
             hours = ((int)timer) / (60*60);
             if (seconds < 10) //makes string on screen appear as '09' instead of '9' if 9 seconds have passed
-                secString = "0" + (seconds.ToString());
+                secString = TimeScript.timeFormatter(seconds);
             else
                 secString = seconds.ToString();
             if (minutes < 10)
-                minString = "0" + (minutes.ToString());
+                minString = TimeScript.timeFormatter(minutes);
             else
                 minString = minutes.ToString();
             timerText.text = minString + ":" + secString;
@@ -243,31 +223,6 @@ namespace UnityStandardAssets._2D
                 fallCheck = true;
                 StartCoroutine(FallingToDeath());
             }
-        }
-
-        public void Save()
-        {
-            /*BinaryFormatter formatter = new BinaryFormatter();
-            FileStream file = File.Create(Application.persistentDataPath + "/highScore.dat");
-            HighScoreData hs = new HighScoreData();
-            hs.highscore = highScore;
-            formatter.Serialize(file, hs);
-            file.Close();*/
-        }
-
-        public void Load()
-        {
-            /*if(File.Exists(Application.persistentDataPath + "/highScore.dat"))
-            {
-                BinaryFormatter formatter = new BinaryFormatter();
-                FileStream file = File.Open(Application.persistentDataPath + "/highScore.dat", FileMode.Open);
-                HighScoreData hs = (HighScoreData)formatter.Deserialize(file);
-                file.Close();
-                highScore = hs.highscore;
-            }
-            else
-                highScore = 0;
-            UpdateHighScoreText();*/
         }
     }
 }

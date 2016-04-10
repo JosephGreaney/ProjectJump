@@ -6,17 +6,6 @@ using System;//datetime
 
 public class DBConnect : MonoBehaviour {
 
-	// Use this for initialization
-	void Start ()
-    {
-        
-    }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
     public static List<DateTime> getHighScores()
     {
         string conn = "URI=file:" + Application.dataPath + "/Database.s3db"; //Path to database.
