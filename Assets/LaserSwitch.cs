@@ -5,11 +5,15 @@ public class LaserSwitch : MonoBehaviour {
 
     private Animator m_Anim;
     private GameObject laser;
-
+    private string switchName;
+    private string switchNumber;
     // Use this for initialization
     void Start () {
         m_Anim = GetComponent<Animator>();
-        laser = GameObject.FindGameObjectWithTag("Laser");
+        switchName = transform.name;
+        switchNumber = switchName.Substring(7, 1);
+        print(switchNumber);
+        laser = GameObject.FindGameObjectWithTag("Laser" +"(" +switchNumber  +")");
     }
 	
 	// Update is called once per frame

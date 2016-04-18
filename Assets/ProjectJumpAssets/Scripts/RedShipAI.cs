@@ -6,6 +6,7 @@ public class RedShipAI : Movement {
     //setting the target and movement speed
     public Transform target;
     public float speed = 2f;
+    public float range = 15f; 
     GameObject player;
     public Rigidbody2D redShip;
 
@@ -19,7 +20,7 @@ public class RedShipAI : Movement {
 	// Update is called once per frame
 	void Update () {
         //print(Vector3.Distance(transform.position, player.transform.position));
-        if (Vector3.Distance(transform.position, player.transform.position) < 20 && player.transform.position.y > transform.position.y)
+        if (Vector3.Distance(transform.position, player.transform.position) < range && player.transform.position.y > transform.position.y)
         {
             transform.LookAt(player.transform);
             if (transform.position.x > player.transform.position.x)
@@ -32,7 +33,7 @@ public class RedShipAI : Movement {
                 moveUpRight(speed, redShip);
             }
         }
-        if (Vector3.Distance(transform.position, player.transform.position) < 20 && player.transform.position.y < transform.position.y)
+        if (Vector3.Distance(transform.position, player.transform.position) < range && player.transform.position.y < transform.position.y)
         {
             if (transform.position.x > player.transform.position.x)
             {
