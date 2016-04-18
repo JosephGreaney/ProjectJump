@@ -15,6 +15,8 @@ public class PickUpScript : MonoBehaviour {
         {
             GameObject seeker = GameObject.FindGameObjectWithTag("Seeker");
             seeker.SendMessage("Move");
+            GameObject endPickUp = GameObject.FindGameObjectWithTag("PickUp");
+            endPickUp.gameObject.SetActive(true);
         }
     }
 }

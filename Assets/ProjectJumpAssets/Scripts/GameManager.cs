@@ -19,7 +19,10 @@ public class GameManager : MonoBehaviour {
 
         //Sets this object to not be destroyed when scene is reloaded
         DontDestroyOnLoad(gameObject);
-	}
+
+        GameObject endPickUp = GameObject.FindGameObjectWithTag("PickUp");
+        endPickUp.gameObject.SetActive(false);
+    }
 
     /**
      *  Call this method to kill the player and send them to the restart scene
