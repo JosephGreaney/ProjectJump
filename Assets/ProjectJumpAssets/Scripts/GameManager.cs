@@ -8,20 +8,19 @@ public class GameManager : MonoBehaviour {
     /**
      *  Awake is called before Start functions
      */
-    void Awake ()
+    void Awake()
     {
         //Check if instance already exists
         if (instance == null)
             instance = this;        //If not set instance to this
-        
+
         else if (instance != this)
             Destroy(gameObject);    //Otherwise destroy this
 
         //Sets this object to not be destroyed when scene is reloaded
         DontDestroyOnLoad(gameObject);
 
-        GameObject endPickUp = GameObject.FindGameObjectWithTag("PickUp");
-        endPickUp.gameObject.SetActive(false);
+
     }
 
     /**
