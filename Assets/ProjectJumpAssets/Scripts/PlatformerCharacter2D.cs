@@ -155,11 +155,11 @@ namespace UnityStandardAssets._2D
 
         void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.CompareTag("PickUp"))
-            {
-                other.gameObject.SetActive(false);
+            if (other.gameObject.CompareTag("EndTag"))
                 GameManager.LevelSuccess(hours, minutes, seconds);
-            }
+            else if (other.gameObject.CompareTag("PickUp"))
+                other.gameObject.SetActive(false);
+
         }
 
         void UpdateTimer()
