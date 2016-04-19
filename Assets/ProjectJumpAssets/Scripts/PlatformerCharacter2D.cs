@@ -26,12 +26,12 @@ namespace UnityStandardAssets._2D
 		private float vspLimit = 10f;		// Maximum/minimum vertical speed limit of the character
 		private float gravity = 1f;         // Gravity multiplier
         
-        public Text timerText;
-        private float timer;
+        public Text timerText; //Text that is displayed in top right of level
+        private float timer; //Keeps track of time spent on level
         private int seconds;
         private int minutes;
         private int hours;
-        private String minString;
+        private String minString; 
         private String secString;
 
         private int maxFallTime = 10;        // The maximum amount of seconds to spend before player falls to their death
@@ -40,7 +40,7 @@ namespace UnityStandardAssets._2D
         void Start()
         {
             timer = 0.0f;
-            minutes = 0;
+            //minutes = 0; //minutes needs to be initialised f
         }
 
         private void Awake()
@@ -155,18 +155,17 @@ namespace UnityStandardAssets._2D
 
         void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.CompareTag("EndTag"))
+            if (other.gameObject.CompareTag("EndTag")) //spaceship
                 GameManager.LevelSuccess(hours, minutes, seconds);
             else if (other.gameObject.CompareTag("PickUp"))
                 other.gameObject.SetActive(false);
-
         }
 
         void UpdateTimer()
         {
             //deltaTime is the amount of time the last frame took
             timer += Time.deltaTime;
-            seconds = (int)timer - (minutes * 60);
+            seconds = (int)timer - (minutes * 60); //total seconds, minus complete minutes
             minutes = ((int)timer) / 60;
             hours = ((int)timer) / (60*60);
             if (seconds < 10) //makes string on screen appear as '09' instead of '9' if 9 seconds have passed

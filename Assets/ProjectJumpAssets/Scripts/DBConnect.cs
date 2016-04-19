@@ -4,31 +4,28 @@ using Mono.Data.Sqlite;
 using System.Data; //connecting to database
 using System;//datetime
 
-public class DBConnect : MonoBehaviour {
+public class DBConnect : MonoBehaviour{
 
     public static List<DateTime> getHighScores()
     {
         string conn = "URI=file:" + Application.dataPath + "/Database.s3db"; //Path to database.
         IDbConnection dbconn;
-        dbconn = (IDbConnection)new SqliteConnection(conn);//creating connection to database
+        dbconn = (IDbConnection)new SqliteConnection(conn);//creating connection to sqllite database
         dbconn.Open(); //Open connection to the database.
-        IDbCommand dbcmd = dbconn.CreateCommand();
+        IDbCommand dbcmd = dbconn.CreateCommand(); 
         string sqlQuery = "SELECT * " + "FROM HighScores";
-        dbcmd.CommandText = sqlQuery;
-        IDataReader reader = dbcmd.ExecuteReader();
+        dbcmd.CommandText = sqlQuery; //puts query we want to execute into dbcmd
+        IDataReader reader = dbcmd.ExecuteReader(); //executes query
         List<DateTime> times = new List<DateTime>();
         DateTime value;
         while (reader.Read())
         {
-            value = reader.GetDateTime(0);
+            value = reader.GetDateTime(0); //passing 0 as we are reading from first column in 
             times.Add(value);
         }
         reader.Close();
-        reader = null;
         dbcmd.Dispose();
-        dbcmd = null;
         dbconn.Close();
-        dbconn = null;
         times.Sort();
         return times;
     }
@@ -40,13 +37,11 @@ public class DBConnect : MonoBehaviour {
         dbconn = (IDbConnection)new SqliteConnection(conn);
         dbconn.Open(); //Open connection to the database.
         IDbCommand dbcmd = dbconn.CreateCommand();
-        string sqlQuery = "INSERT INTO HighScores " + "VALUES('" + toBeAdded + "')";
+        string sqlQuery = "INSERT INTO HighScores " + "VALUES('" + toBeAdded + "')"; //query broken up for readibility
         dbcmd.CommandText = sqlQuery;
-        dbcmd.ExecuteNonQuery(); //ExecuteNonQuery excutes an SQL command that does not return a result set*/
+        dbcmd.ExecuteNonQuery(); //ExecuteNonQuery excutes an SQL command that does not return a result set
         dbcmd.Dispose();
-        dbcmd = null;
         dbconn.Close();
-        dbconn = null;
     }
 
     public static void write(String toBeRemoved, String toBeAdded)
@@ -63,9 +58,7 @@ public class DBConnect : MonoBehaviour {
         dbcmd.CommandText = sqlQuery;
         dbcmd.ExecuteNonQuery();
         dbcmd.Dispose();
-        dbcmd = null;
         dbconn.Close();
-        dbconn = null;
     }
 
     public static String getBestTime()
@@ -84,12 +77,9 @@ public class DBConnect : MonoBehaviour {
             min = reader.GetDateTime(0);
         }
         reader.Close();
-        reader = null;
         dbcmd.Dispose();
-        dbcmd = null;
         dbconn.Close();
-        dbconn = null;
-        return TimeScript.getTimeOnly(min);
+        return TimeScript.getTimeOnly(min); //parses timedate as time
     }
 }
 
