@@ -3,10 +3,10 @@ using System.Collections;
 
 public class Movement : MonoBehaviour
 {
-    public void moveLeft(float speed, Rigidbody2D moveable)
-    {
-        Vector3 checkLeft = new Vector3(-1, 0, 0);
-        if (!Physics2D.Raycast(transform.position, checkLeft, 1))
+    public void moveLeft(float speed, Rigidbody2D moveable)                     //The ship's AI script passes in a speed to a method
+    {                                                                           //The method creates a directional vector
+        Vector3 checkLeft = new Vector3(-1, 0, 0);                              //The method then casts a ray to see if there is anything there
+        if (!Physics2D.Raycast(transform.position, checkLeft, 1))               //The enemy is then moved into that position if there is nothing there
         {
             moveable.velocity = new Vector3(-1, 0, 0);
         }

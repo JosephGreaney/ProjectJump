@@ -9,18 +9,16 @@ public class BlueShipAI : Movement {
     GameObject player;
     public Rigidbody2D blueShip;
 
-    // Use this for initialization
     void Start () {
         //Finding position and target
         blueShip = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player");
     }
-	
-	// Update is called once per frame
+
 	void Update () {
         player = GameObject.FindGameObjectWithTag("Player");
-        if (Vector3.Distance (transform.position, player.transform.position) > 0 && Vector3.Distance(transform.position, player.transform.position) < 20) {
-            if (player.transform.position.x > transform.position.x)
+        if (Vector3.Distance (transform.position, player.transform.position) > 0 && Vector3.Distance(transform.position, player.transform.position) < 20) { //Check if player is in range
+            if (player.transform.position.x > transform.position.x) // If he is to the left or right
             {
                 transform.LookAt(player.transform);
                 moveRight(speed, blueShip);

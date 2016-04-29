@@ -10,22 +10,19 @@ public class RedShipAI : Movement {
     GameObject player;
     public Rigidbody2D redShip;
 
-	// Use this for initialization
 	void Start () {
         redShip = GetComponent<Rigidbody2D>();
         //Finding position and target
         player = GameObject.FindGameObjectWithTag("Player");
     }
-	
-	// Update is called once per frame
+
 	void Update () {
-        //print(Vector3.Distance(transform.position, player.transform.position));
         if (Vector3.Distance(transform.position, player.transform.position) < range && player.transform.position.y > transform.position.y)
         {
             transform.LookAt(player.transform);
-            if (transform.position.x > player.transform.position.x)
-            {
-                moveUpLeft(speed, redShip);
+            if (transform.position.x > player.transform.position.x)  //Checking if the player is in range
+            {                                                        //Then check which direction he is in relative to the enemy
+                moveUpLeft(speed, redShip);                          //Then call a function to m ove in that direction
             }
             if (transform.position.x < player.transform.position.x)
             {

@@ -9,9 +9,9 @@ public class LaserSwitch : MonoBehaviour {
     private string switchNumber;
     // Use this for initialization
     void Start () {
-        m_Anim = GetComponent<Animator>();
-        switchName = transform.name;
-        switchNumber = switchName.Substring(7, 1);
+        m_Anim = GetComponent<Animator>();              //Find out which switch is being activated 
+        switchName = transform.name;                    //Parse the last digit 
+        switchNumber = switchName.Substring(7, 1);      //Find the gate with the same last digit
         print(switchNumber);
         laser = GameObject.FindGameObjectWithTag("Laser" +"(" +switchNumber  +")");
     }
