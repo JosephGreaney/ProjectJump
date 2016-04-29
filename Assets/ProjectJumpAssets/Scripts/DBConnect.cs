@@ -71,7 +71,7 @@ public class DBConnect : MonoBehaviour{
         string sqlQuery = "SELECT MIN(RunTime) " + "FROM HighScores";
         dbcmd.CommandText = sqlQuery;
         IDataReader reader = dbcmd.ExecuteReader();
-        DateTime min = new DateTime();
+        DateTime min = new DateTime(2000, 01, 01, 00, 00, 00);
         while (reader.Read())
         {
             min = reader.GetDateTime(0);

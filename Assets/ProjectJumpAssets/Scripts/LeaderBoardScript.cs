@@ -23,6 +23,6 @@ public class LeaderBoardScript : MonoBehaviour
 	
     public void ContinueButtonPressed()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene(0);
     }
 }

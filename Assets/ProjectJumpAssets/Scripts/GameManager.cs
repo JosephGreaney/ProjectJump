@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour {
     public static void PlayerDeath()
     {
         Handheld.Vibrate();
-        SceneManager.LoadScene("DeathScene");
+        SceneManager.LoadScene(0);
     }
 
     public static void LevelSuccess(int hours, int minutes, int seconds)
