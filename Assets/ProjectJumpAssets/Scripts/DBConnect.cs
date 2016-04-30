@@ -3,12 +3,25 @@ using System.Collections.Generic; //list
 using Mono.Data.Sqlite;
 using System.Data; //connecting to database
 using System;//datetime
+using System.IO;
 
 public class DBConnect : MonoBehaviour{
 
     public static List<DateTime> getHighScores()
     {
-        string conn = "URI=file:" + Application.dataPath + "/Database.s3db"; //Path to database.
+        Debug.Log("hs");
+        string path = Application.dataPath + "/StreamingAssets/Database.s3db"; //Path to database.
+        if (!File.Exists(path))
+        {
+            Debug.LogWarning("Doesn't exist");
+            // if it doesn't ->
+            // open StreamingAssets directory and load the db -> 
+            WWW loadDB = new WWW("jar:file://" + Application.dataPath + "!/assets/Database.s3db");
+            while (!loadDB.isDone) { }
+            // then save to Application.persistentDataPath
+            File.WriteAllBytes(path, loadDB.bytes);
+        }
+        string conn = "URI=file:" + path;
         IDbConnection dbconn;
         dbconn = (IDbConnection)new SqliteConnection(conn);//creating connection to sqllite database
         dbconn.Open(); //Open connection to the database.
@@ -24,29 +37,59 @@ public class DBConnect : MonoBehaviour{
             times.Add(value);
         }
         reader.Close();
+        reader = null;
         dbcmd.Dispose();
+        dbcmd = null;
         dbconn.Close();
+        dbconn = null;
         times.Sort();
         return times;
     }
 
     public static void write(String toBeAdded) //used when there are less than 5 highscores in the database, so score is added without one being removed
     {
-        string conn = "URI=file:" + Application.dataPath + "/Database.s3db"; //Path to database.
+        Debug.Log("Write");
+        string path = Application.dataPath + "/StreamingAssets/Database.s3db"; //Path to database.
+        if (!File.Exists(path))
+        {
+            Debug.LogWarning("Doesn't exist");
+            // if it doesn't ->
+            // open StreamingAssets directory and load the db -> 
+            WWW loadDB = new WWW("jar:file://" + Application.dataPath + "!/assets/Database.s3db");
+            while (!loadDB.isDone) { }
+            // then save to Application.persistentDataPath
+            File.WriteAllBytes(path, loadDB.bytes);
+        }
         IDbConnection dbconn;
+        string conn = "URI=file:" + path;
         dbconn = (IDbConnection)new SqliteConnection(conn);
         dbconn.Open(); //Open connection to the database.
         IDbCommand dbcmd = dbconn.CreateCommand();
+        Debug.Log(path);
         string sqlQuery = "INSERT INTO HighScores " + "VALUES('" + toBeAdded + "')"; //query broken up for readibility
         dbcmd.CommandText = sqlQuery;
         dbcmd.ExecuteNonQuery(); //ExecuteNonQuery excutes an SQL command that does not return a result set
         dbcmd.Dispose();
+        dbcmd = null;
         dbconn.Close();
+        dbconn = null;
     }
 
     public static void write(String toBeRemoved, String toBeAdded)
     {
-        string conn = "URI=file:" + Application.dataPath + "/Database.s3db"; //Path to database.
+        Debug.Log("write&&&");
+        string path = Application.dataPath + "/StreamingAssets/Database.s3db"; //Path to database.
+        if (!File.Exists(path))
+        {
+            Debug.LogWarning("Doesn't exist");
+            // if it doesn't ->
+            // open StreamingAssets directory and load the db -> 
+            WWW loadDB = new WWW("jar:file://" + Application.dataPath + "!/assets/Database.s3db");
+            while (!loadDB.isDone) { }
+            // then save to Application.persistentDataPath
+            File.WriteAllBytes(path, loadDB.bytes);
+        }
+        string conn = "URI=file:" + path;
         IDbConnection dbconn;
         dbconn = (IDbConnection)new SqliteConnection(conn);
         dbconn.Open(); //Open connection to the database.
@@ -58,12 +101,25 @@ public class DBConnect : MonoBehaviour{
         dbcmd.CommandText = sqlQuery;
         dbcmd.ExecuteNonQuery();
         dbcmd.Dispose();
+        dbcmd = null;
         dbconn.Close();
+        dbconn = null;
     }
 
     public static String getBestTime()
     {
-        string conn = "URI=file:" + Application.dataPath + "/Database.s3db"; //Path to database.
+        string path = Application.dataPath + "/StreamingAssets/Database.s3db"; //Path to database.
+        if (!File.Exists(path))
+        {
+            Debug.LogWarning("Doesn't exist");
+            // if it doesn't ->
+            // open StreamingAssets directory and load the db -> 
+            WWW loadDB = new WWW("jar:file://" + Application.dataPath + "!/assets/Database.s3db");
+            while (!loadDB.isDone) { }
+            // then save to Application.persistentDataPath
+            File.WriteAllBytes(path, loadDB.bytes);
+        }
+        string conn = "URI=file:" + path;
         IDbConnection dbconn;
         dbconn = (IDbConnection)new SqliteConnection(conn);//creating connection to database
         dbconn.Open(); //Open connection to the database.
@@ -77,8 +133,11 @@ public class DBConnect : MonoBehaviour{
             min = reader.GetDateTime(0);
         }
         reader.Close();
+        reader = null;
         dbcmd.Dispose();
+        dbcmd = null;
         dbconn.Close();
+        dbconn = null;
         return TimeScript.getTimeOnly(min); //parses timedate as time
     }
 }
