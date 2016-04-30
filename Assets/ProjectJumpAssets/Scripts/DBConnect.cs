@@ -11,7 +11,7 @@ public class DBConnect : MonoBehaviour{
     {
         Debug.Log("hs");
         List<DateTime> times = new List<DateTime>();
-        string path = Application.persistentDataPath + "/Assets/Database.s3db"; //Path to database.
+        string path = Application.dataPath + "/Database.s3db"; //Path to database.
         Debug.Log(path + "                ");
         if (File.Exists(path))
         {
@@ -52,7 +52,7 @@ public class DBConnect : MonoBehaviour{
     public static void write(String toBeAdded) //used when there are less than 5 highscores in the database, so score is added without one being removed
     {
         Debug.Log("Write");
-        string path = Application.persistentDataPath + "/Assets/Database.s3db";//Path to database.
+        string path = Application.dataPath + "/Database.s3db";//Path to database.
          Debug.Log(path);
         IDbConnection dbconn;
         string conn = "URI=file:" + path;
@@ -75,7 +75,7 @@ public class DBConnect : MonoBehaviour{
     public static void write(String toBeRemoved, String toBeAdded)
     {//if we get to here, DB must already exist
         Debug.Log("write&&&");
-        string conn = "URI=file:" + Application.persistentDataPath + "/Assets/Database.s3db"; //Path to database.
+        string conn = "URI=file:" + Application.dataPath + "/Database.s3db"; //Path to database.
         IDbConnection dbconn;
         dbconn = (IDbConnection)new SqliteConnection(conn);
         dbconn.Open(); //Open connection to the database.
@@ -94,7 +94,7 @@ public class DBConnect : MonoBehaviour{
 
     public static String getBestTime()
     {
-        string path = Application.persistentDataPath + "/Assets/Database.s3db"; //Path to database.
+        string path = Application.dataPath + "/Database.s3db"; //Path to database.
         string conn = "URI=file:" + path;
         DateTime min = new DateTime(2000, 01, 01, 00, 00, 00);
         if (!File.Exists(path))
