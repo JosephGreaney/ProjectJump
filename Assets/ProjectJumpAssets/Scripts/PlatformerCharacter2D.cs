@@ -206,7 +206,7 @@ namespace UnityStandardAssets._2D
             if (fallCheck)
             {
                 fallCheck = false;
-                SceneManager.LoadScene("DeathScene");
+                GameManager.PlayerDeath();
                 yield return true;
             }
             
