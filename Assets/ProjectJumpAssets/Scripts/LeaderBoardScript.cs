@@ -12,7 +12,7 @@ public class LeaderBoardScript : MonoBehaviour
     {
         List<DateTime> times = DBConnect.getHighScores(); //reads scores currently in DB
         String[] tempArray = new String[5] { "--:--:--", "--:--:--", "--:--:--", "--:--:--", "--:--:--" };
-        for (int i = 0; i < times.Count; i++)
+        for (int i = 0; i < times.Count && i < 5; i++)
             tempArray[i] = TimeScript.getTimeOnly(times[i]); //Formating times before putting them in List
         Score1.text = tempArray[0]; //These text objects are displayed in textboxes in the leaderboard scene
         Score2.text = tempArray[1];
