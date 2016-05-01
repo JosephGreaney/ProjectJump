@@ -11,10 +11,6 @@ public class DisplayHighScore : DBConnect {
     void Start () {
         text = GetComponent<Text>();
         text.text = getBestTime();
-        if (text.text == null)
-        {
-            text.text = "Never Finished";
-        }
 	}
 	
 	// Update is called once per frame
