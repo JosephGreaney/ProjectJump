@@ -7,10 +7,18 @@ public class Pause : MonoBehaviour {
 
     public bool paused;
     private Text text;
+    private GameObject menuButton;
+    private GameObject restartButton;
+
     void Awake()
     {
         paused = false;
         text = GameObject.Find("TimerText").GetComponent<Text>();
+        menuButton = GameObject.Find("MenuButton");
+        restartButton = GameObject.Find("RestartButton");
+        menuButton.SetActive(false);
+        restartButton.SetActive(false);
+        
     }
     void Update()
     {
@@ -24,9 +32,18 @@ public class Pause : MonoBehaviour {
             Debug.Log(paused);
             paused = !paused;
             if (paused)
+            {
                 Time.timeScale = 0;
+                menuButton.SetActive(true);
+                restartButton.SetActive(true);
+            }
+
             else
+            {
                 Time.timeScale = 1;
+                menuButton.SetActive(false);
+                restartButton.SetActive(false);
+            }
         }
         
     }

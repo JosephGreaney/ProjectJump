@@ -24,6 +24,7 @@ public class RestartButton : MonoBehaviour, IPointerDownHandler
 
     public void restartScene()
     {
-        SceneManager.LoadScene(1);
+        Debug.Log("Loading");
+        SceneManager.LoadScene("Level1");
     }
 }
