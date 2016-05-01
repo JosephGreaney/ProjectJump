@@ -110,7 +110,6 @@ public class DBConnect : MonoBehaviour{
             {
                 using (IDataReader reader = cmd.ExecuteReader())
                 {
-                    DateTime value;
                     while (reader.Read())
                     {
                         min = reader.GetDateTime(0);
