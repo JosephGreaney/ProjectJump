@@ -9,14 +9,11 @@ public class DBConnect : MonoBehaviour{
 
     public static List<DateTime> getHighScores()
     {
-        Debug.Log("hs");
         List<DateTime> times = new List<DateTime>();
         string path = Application.persistentDataPath + "/Database.s3db"; //Path to database.
-        Debug.Log(path + "                ");
         if (File.Exists(path))
         {
             string sqlQuery;
-            Debug.Log("Exists");
             string conn = "URI=file:" + path;
             using (SqliteConnection dbconn = new SqliteConnection(conn))
             {
@@ -47,10 +44,7 @@ public class DBConnect : MonoBehaviour{
 
     public static void write(String toBeAdded) //used when there are less than 5 highscores in the database, so score is added without one being removed
     {
-        Debug.Log("Write");
         string path = Application.persistentDataPath + "/Database.s3db";//Path to database.
-        Debug.Log(path);
-        //IDbConnection dbconn;
         string conn = "URI=file:" + path;
         string sqlQuery;
         using (SqliteConnection dbconn = new SqliteConnection(conn))
@@ -71,11 +65,7 @@ public class DBConnect : MonoBehaviour{
 
     public static void write(String toBeRemoved, String toBeAdded)
     {
-        Debug.Log("write&&&");
-
         string path = Application.persistentDataPath + "/Database.s3db";//Path to database.
-        Debug.Log(path);
-        //IDbConnection dbconn;
         string conn = "URI=file:" + path;
         string sqlQuery;
         using (SqliteConnection dbconn = new SqliteConnection(conn))

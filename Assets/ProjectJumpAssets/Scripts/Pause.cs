@@ -13,6 +13,7 @@ public class Pause : MonoBehaviour {
     void Awake()
     {
         paused = false;
+        Time.timeScale = 1;
         text = GameObject.Find("TimerText").GetComponent<Text>();
         menuButton = GameObject.Find("MenuButton");
         restartButton = GameObject.Find("RestartButton");
