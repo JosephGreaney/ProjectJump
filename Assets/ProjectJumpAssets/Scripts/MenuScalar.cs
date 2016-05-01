@@ -10,14 +10,13 @@ public class MenuScalar : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Screen.orientation == ScreenOrientation.Portrait && transform.localScale.x == 1.5f)
+        if (Screen.orientation == ScreenOrientation.Portrait) //Check the phones orientation
         {
-            print("portrait");
-            transform.localScale += new Vector3(-0.5F, -0.5F, 0);
+            transform.localScale = new Vector3(1.0F, 1.0F, 0.1F); //Scale to the appropriate size
         }
-        else if (Screen.orientation == ScreenOrientation.Landscape && transform.localScale.x == 1.4f)
-        {
-            transform.localScale += new Vector3(0.5F, 0.5F, 0);
+        else if (Screen.orientation == ScreenOrientation.Landscape)
+        {                                                               //Repeat
+            transform.localScale = new Vector3(2.9F, 2.7F, 0.1F);
         }
     }
 }
